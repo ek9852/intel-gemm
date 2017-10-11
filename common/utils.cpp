@@ -21,8 +21,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.h>
+#include <OpenCL/cl_ext.h>
+#else
 #include "CL/cl.h"
 #include "CL/cl_ext.h"
+#endif
 #include "utils.h"
 #include <assert.h>
 #include "basic.hpp"
@@ -31,13 +36,14 @@
 
 #pragma warning( push )
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
 char *ReadSources(const char *fileName)
 #else
 char *ReadSources(const wchar_t *fileName)
 #endif
 {
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
+char *ReadSources(const char *fileName)
     FILE *file = fopen(fileName, "rb");
     if (!file)
     {

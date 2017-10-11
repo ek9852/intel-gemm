@@ -24,7 +24,11 @@
 #include <vector>
 #include <cerrno>
 #include <cstdint>
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl_gl.h>
+#else
 #include <CL/cl_gl.h>
+#endif
 
 #include "basic.hpp"
 
@@ -100,7 +104,9 @@ string opencl_error_to_str (cl_int error)
         CASE_CL_CONSTANT(CL_INVALID_MIP_LEVEL)
         CASE_CL_CONSTANT(CL_INVALID_GLOBAL_WORK_SIZE)
         CASE_CL_CONSTANT(CL_INVALID_PROPERTY)
+#ifdef CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
 		CASE_CL_CONSTANT(CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR)
+#endif
     default:
         return "UNKNOWN ERROR CODE " + to_str(error);
     }

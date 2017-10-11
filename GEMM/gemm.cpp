@@ -24,7 +24,11 @@
 #include <limits>
 #include <cmath>
 
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.h>
+#else
 #include <CL/cl.h>
+#endif
 
 #include "basic.hpp"
 #include "cmdoptions.hpp"

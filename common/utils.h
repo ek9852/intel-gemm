@@ -18,7 +18,11 @@
 // Intel Corporation is the author of the Materials, and requests that all
 // problem reports or change requests be submitted to it directly
 
-#include "CL/cl.h"
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.h>
+#else
+#include <CL/cl.h>
+#endif
 
 
 #pragma once
@@ -137,7 +141,7 @@ cl_int fillRandomFloatVecBuffer(    cl_command_queue* cmdqueue,
                                 float randmax = 1.0f );
 
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
 char *ReadSources(const char *fileName);
 #else
 char *ReadSources(const wchar_t *fileName);

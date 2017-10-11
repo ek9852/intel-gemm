@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if (_MSC_VER>=1700 || __linux__ )
+#if (_MSC_VER>=1700 || __linux__ || __APPLE__)
 #include <stdint.h>
 #else
 typedef signed char        int8_t;
